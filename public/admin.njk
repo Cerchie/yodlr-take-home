@@ -1,0 +1,20 @@
+
+<body>
+<h1>user data</h1>
+  List user data here
+
+  <li>USER DATA{{usersFromJSON}}</li>
+  <ul>
+  {%for key, item in usersFromJSON%}
+   USER {{item.id}}
+   <li>
+      {{item.firstName}}
+      {{item.lastName}}
+      {{item.email}}
+      {{item.state}}
+      </li>
+ {% endfor %}
+</ul>
+</body>
+
+

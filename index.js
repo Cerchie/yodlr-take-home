@@ -6,11 +6,36 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var logger = require('./lib/logger');
 var cors = require('cors');
-
+var nunjucks = require('nunjucks');
 var users = require('./routes/users');
+var usersFromJSON = require('./init_data.json').data;
 
 var app = express();
 var log = logger(app);
+var email = document.getElementById("email").value;
+//need to submit this to the route to post it to users somehow
+nunjucks.configure('public', {
+  autoescape: true,
+  express: app
+});
+
+
+app.post('/', function(email, res){
+  res.render('signup.html', email)
+})
+app.get('/', function(req, res) {
+  res.render('index.html');
+});
+app.get('/signup', function(req, res) {
+  res.render('signup.njk');
+});
+app.get('/admin', function(req, res) {
+  res.render('admin.njk', {usersFromJSON});
+});
+//move these ^ to their own file later
+
+
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
